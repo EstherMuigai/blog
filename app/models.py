@@ -17,6 +17,7 @@ class Blogger(db.Model,UserMixin):
     email = db.Column(db.String(255),unique = True,index = True)
     profile_pic_path = db.Column(db.String())
     joined = db.Column(db.DateTime,default=datetime.utcnow)
+    blogposts = db.relationship('BlogPost',backref = 'blogpost',lazy="dynamic")
 
     @property
     def password(self):
@@ -36,3 +37,14 @@ class Blogger(db.Model,UserMixin):
 
     def __repr__(self):
         return f'Blogger {self.username}'
+
+class BlogPost(db.Model):
+    __tablename__ = 'blogposts'
+
+    id = db.Column(db.Integer,primary_key = True)
+    title = db.Column(db.String(255))
+    content = db.Column(db.String(255))
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    blogpost_pic_path = db.Column(db.String())
+    blogger_id = db.Column(db.Integer,db.ForeignKey('bloggers.id'))
+    
