@@ -3,7 +3,9 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from config import config_options
 from flask_login import LoginManager
+from flask_simplemde import SimpleMDE
 
+simple = SimpleMDE()
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 
@@ -18,6 +20,7 @@ def create_app(config_name):
     bootstrap.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
+    simple.init_app(app)
 
 # Creating the app configurations
     app.config.from_object(config_options[config_name])

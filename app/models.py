@@ -48,3 +48,15 @@ class BlogPost(db.Model):
     blogpost_pic_path = db.Column(db.String())
     blogger_id = db.Column(db.Integer,db.ForeignKey('bloggers.id'))
     
+    def save_post(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_post(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @classmethod
+    def get_posts(cls):
+        posts = BlogPost.query.order_by(BlogPost.posted.desc()).all()
+        return posts
