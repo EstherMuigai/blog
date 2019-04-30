@@ -26,8 +26,8 @@ def create_app(config_name):
     app.config.from_object(config_options[config_name])
 
 # Registering the blueprint
-    from .general import general as general_blueprint
-    app.register_blueprint(general_blueprint)
+    from .myblog import myblog as myblog_blueprint
+    app.register_blueprint(myblog_blueprint,url_prefix = '/')
     
     from .blogger import blogger as blogger_blueprint
     app.register_blueprint(blogger_blueprint,url_prefix = '/blog')

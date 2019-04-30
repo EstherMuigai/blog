@@ -11,8 +11,10 @@
     <div class="col-sm-8">
         {{blogpost.title}}
         {{format_post|safe}}
-        {{ wtf.quick_form(delete) }}
-        {{ wtf.quick_form(edit) }}
+        {% if current_user %}
+          {{ wtf.quick_form(delete) }}
+          {{ wtf.quick_form(edit) }}
+        {% endif %}
     </div>
   </div>
 </div>

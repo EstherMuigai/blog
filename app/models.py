@@ -18,6 +18,7 @@ class Blogger(db.Model,UserMixin):
     profile_pic_path = db.Column(db.String())
     joined = db.Column(db.DateTime,default=datetime.utcnow)
     blogposts = db.relationship('BlogPost',backref = 'blogpost',lazy="dynamic")
+    
 
     @property
     def password(self):
@@ -43,10 +44,12 @@ class BlogPost(db.Model):
 
     id = db.Column(db.Integer,primary_key = True)
     title = db.Column(db.String(255))
+    category = db.Column(db.String(255),unique = True,index = True)
     content = db.Column(db.String(255))
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     blogpost_pic_path = db.Column(db.String())
     blogger_id = db.Column(db.Integer,db.ForeignKey('bloggers.id'))
+    comments = db.relationship('Comment',backref = 'blogcomment',lazy="dynamic")
     
     def save_post(self):
         db.session.add(self)
@@ -60,3 +63,21 @@ class BlogPost(db.Model):
     def get_posts(cls):
         posts = BlogPost.query.order_by(BlogPost.posted.desc()).all()
         return posts
+
+class Visitor(db.Model):
+    __tablename__ = 'visitors'
+
+    id = db.Column(db.Integer,primary_key = True)
+    email = db.Column(db.String(255))
+    content = db.Column(db.String(255))
+    comments = db.relationship('Comment',backref = 'comment',lazy="dynamic")
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    content = db.Column(db.String(255))
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    blogpost_id = db.Column(db.Integer,db.ForeignKey('blogposts.id'))
+    visitor_id = db.Column(db.Integer,db.ForeignKey('visitors.id'))
+
