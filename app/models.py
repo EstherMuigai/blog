@@ -16,6 +16,7 @@ class Blogger(db.Model,UserMixin):
     bio = db.Column(db.String(255))
     email = db.Column(db.String(255),unique = True,index = True)
     profile_pic_path = db.Column(db.String())
+    cover_pic_path = db.Column(db.String())
     joined = db.Column(db.DateTime,default=datetime.utcnow)
     blogposts = db.relationship('BlogPost',backref = 'blogpost',lazy="dynamic")
     
@@ -36,6 +37,11 @@ class Blogger(db.Model,UserMixin):
     def load_blogger(blogger_id):
         return Blogger.query.get(int(blogger_id))
 
+    @classmethod
+    def get_bloggers(cls):
+        bloggers = Blogger.query.all()
+        return bloggers
+
     def __repr__(self):
         return f'Blogger {self.username}'
 
@@ -45,7 +51,7 @@ class BlogPost(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     title = db.Column(db.String(255))
     category = db.Column(db.String(255),unique = True,index = True)
-    content = db.Column(db.String(255))
+    content = db.Column(db.String())
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     blogpost_pic_path = db.Column(db.String())
     blogger_id = db.Column(db.Integer,db.ForeignKey('bloggers.id'))
@@ -68,9 +74,13 @@ class Visitor(db.Model):
     __tablename__ = 'visitors'
 
     id = db.Column(db.Integer,primary_key = True)
+    username = db.Column(db.String(255))
     email = db.Column(db.String(255))
-    content = db.Column(db.String(255))
     comments = db.relationship('Comment',backref = 'comment',lazy="dynamic")
+
+    def save_visitor(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Comment(db.Model):
     __tablename__ = 'comments'
@@ -79,5 +89,15 @@ class Comment(db.Model):
     content = db.Column(db.String(255))
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     blogpost_id = db.Column(db.Integer,db.ForeignKey('blogposts.id'))
+    blogger_id = db.Column(db.Integer)
     visitor_id = db.Column(db.Integer,db.ForeignKey('visitors.id'))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(blogpost_id=id).order_by(Comment.posted.desc()).all()
+        return comments
 

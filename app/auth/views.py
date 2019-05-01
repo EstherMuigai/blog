@@ -22,7 +22,7 @@ def login():
         blogger = Blogger.query.filter_by(username= login_form.username.data).first()
         if blogger is not None and blogger.verify_password(login_form.password.data):
             login_user(blogger,login_form.remember.data)
-            return redirect(request.args.get('next') or url_for('general.landingpage'))
+            return redirect(request.args.get('next') or url_for('myblog.landingpage'))
 
         flash('Invalid username or Password')
 

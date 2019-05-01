@@ -4,6 +4,24 @@
 
 <p>I'm a blogger</p>
 <a href="/blog/newpost">New Post</a>
+<div class="col-md-4">
+        {% for blogger in bloggers %}
+            {% if blogger.profile_pic_path %}
+
+            <img src="{{url_for('static',filename=blogger.profile_pic_path)}}" alt="" class="img-thumbnail">
+    
+            {%else%}
+            <p>No profile picture</p>
+    
+            {% endif %}
+            {% if blogger == current_user %}
+            <form  action="{{url_for('blogger.update_pic',uname=blogger.username)}}" method="post" enctype = "multipart/form-data">
+    
+            <input type="file"  name="photo" class="form-control" required>
+            <input type="submit">
+            </form>
+          {% endif %}
+        {% endfor %}
+  </div>
 
 {% endblock %}
-

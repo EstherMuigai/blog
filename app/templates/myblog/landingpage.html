@@ -6,7 +6,7 @@
 <a href="{{url_for('blogger.profile')}}">Blogger account</a>
 {% for post in blogposts %}
     <div>
-        <a href="/{{post.id}}">Read article {{post.title}}</a>
+        <a href="{{post.title}}/{{post.id}}">Read article {{post.title}}</a>
     </div>
 {% endfor %}
 {% endblock %}

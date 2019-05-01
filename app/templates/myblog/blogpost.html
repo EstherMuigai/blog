@@ -6,4 +6,15 @@
         <p>{{blogpost.content}}</p>
         <p>{{blogpost.posted}}</p>
         {{wtf.quick_form(form)}}
+    {% for comment in comments %}
+    <div>
+        <p>{{comment.content}}</p>
+        <p>{{comment.posted}}</p>
+        {% if current_user %}
+          {{ wtf.quick_form(delete)}}
+        {% endif %}
+    </div>
+{% endfor %}
+{{get_quotes_response.quote}}
+{{get_quotes_response.author}}
 {% endblock %}
