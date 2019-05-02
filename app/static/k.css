@@ -1,0 +1,64 @@
+body {
+    font-family: 'Volkhov', serif;
+     color:black;
+ }
+
+ .nav-item {
+    margin-right:100px;
+}
+
+.nav-link:hover {
+   background-color:black;
+   color:#E83F6F;;
+}
+
+.nav>li>a:hover {
+    background-color:black;
+}
+
+a {
+    color:black;
+    font-size:20px;
+}
+
+#land {
+    height:768px;
+    width:auto;
+    background-image:url("https://images.wallpaperscraft.com/image/cup_coffee_headphones_inscription_117601_1920x1080.jpg");
+    background-position: center;
+    background-repeat: no-repeat;  
+    background-size: cover;
+    
+}
+
+#main {
+    margin-left:20%;
+}
+
+#side1 {
+    margin-top:10%;
+    background-color:#E83F6F;
+    height:400px;
+    width:40%;
+}
+
+#side2 {
+    margin-top:10%;
+    background-color:black;
+    color:#E83F6F;
+    height:400px;
+    width:40%;
+    text-align:center;
+}
+
+.btn {
+    color:black;
+    background-color:#E83F6F;
+    border:0;
+}
+
+.btn:hover {
+    color:#E83F6F;
+    background-color:black;
+    border:0;
+}

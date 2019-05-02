@@ -2,26 +2,30 @@
 
 {% block content %}
 
-<p>I'm a blogger</p>
-<a href="/blog/newpost">New Post</a>
-<div class="col-md-4">
-        {% for blogger in bloggers %}
-            {% if blogger.profile_pic_path %}
-
-            <img src="{{url_for('static',filename=blogger.profile_pic_path)}}" alt="" class="img-thumbnail">
-    
-            {%else%}
-            <p>No profile picture</p>
-    
+<div class="wrapper-view">
+  <div class="container" style="margin-top:10%;color:#E83F6F;height:768px;">
+      <h2>Blogger Profile</h2>
+      <a href="/blog/newpost" class="btn btn-lg" role="button">New Post</a>
+      <div class="col-md-4">
+          {% for blogger in bloggers %}
+              {% if blogger.profile_pic_path %}
+  
+              <img src="{{url_for('static',filename=blogger.profile_pic_path)}}" alt="" class="img-thumbnail">
+      
+              {%else%}
+              <p>No profile picture</p>
+      
+              {% endif %}
+              {% if blogger == current_user %}
+              <form  action="{{url_for('blogger.update_pic',uname=blogger.username)}}" method="post" enctype = "multipart/form-data">
+      
+              <input type="file"  name="photo" class="form-control" required>
+              <input type="submit">
+              </form>
             {% endif %}
-            {% if blogger == current_user %}
-            <form  action="{{url_for('blogger.update_pic',uname=blogger.username)}}" method="post" enctype = "multipart/form-data">
-    
-            <input type="file"  name="photo" class="form-control" required>
-            <input type="submit">
-            </form>
-          {% endif %}
-        {% endfor %}
+          {% endfor %}
+    </div>
   </div>
+</div>
 
 {% endblock %}

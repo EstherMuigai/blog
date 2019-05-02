@@ -1,20 +1,29 @@
 {% extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
 {% block content %}
-        <p>{{blogpost.title}}</p>
-        <p>{{blogpost.category}}</p>
-        <p>{{blogpost.content}}</p>
-        <p>{{blogpost.posted}}</p>
-        {{wtf.quick_form(form)}}
-    {% for comment in comments %}
-    <div>
-        <p>{{comment.content}}</p>
-        <p>{{comment.posted}}</p>
-        {% if current_user %}
-          {{ wtf.quick_form(delete)}}
-        {% endif %}
+<div class="wrapper-view">
+  <div class="container-fluid" style="margin-top:10%;color:black;height:500px;">
+      <div class="row" style="font-size: 20px;">
+      <div class="col-md-10">
+        <p>Quote</p>
+        {{get_quotes_response.quote}}~{{get_quotes_response.author}}
+      </div>
     </div>
-{% endfor %}
-{{get_quotes_response.quote}}
-{{get_quotes_response.author}}
+          <p>{{blogpost.title}}</p>
+          <p>{{blogpost.category}}</p>
+          <p>{{blogpost.content}}</p>
+          <p>{{blogpost.posted}}</p>
+      <div class="row"style="width:600px;">
+      {{wtf.quick_form(form)}}
+      </div>
+      {% for comment in comments %}
+              <p>{{comment.content}}</p>
+              <p>{{comment.posted}}</p>
+              {% if current_user %}
+                      {{ wtf.quick_form(delete)}}
+              {% endif %}
+      </div>
+  {% endfor %}
+  </div>
+</div>
 {% endblock %}

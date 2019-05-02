@@ -1,21 +1,29 @@
 {% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
 {% block content%}
-<div class="container-fluid">
+<div class="wrapper-view">
+    <div class="container-fluid" style="margin-top:5%;color:#E83F6F;height:768px;">
 
-  <div class="row">
-    <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-4">
+            
+          </div>
       
-    </div>
-
-    <div class="col-sm-8">
-        {{blogpost.title}}
-        {{format_post|safe}}
-        {% if current_user %}
-          {{ wtf.quick_form(delete) }}
-          {{ wtf.quick_form(edit) }}
-        {% endif %}
-    </div>
-  </div>
+          <div class="col-sm-8">
+              {{blogpost.title}}
+              {{format_post|safe}}
+              {% if current_user %}
+                <div class="row">
+                  <div class="col-md-4">
+                      {{ wtf.quick_form(delete) }}
+                  </div>
+                  <div class="col-md-4">
+                      {{ wtf.quick_form(edit) }}
+                  </div>
+                </div>
+              {% endif %}
+          </div>
+        </div>
+      </div>
 </div>
 {%endblock%}

@@ -1,12 +1,23 @@
 {% extends 'base.html'%}
-
 {% block content %}
-
-<p>Landing page</p>
-<a href="{{url_for('blogger.profile')}}">Blogger account</a>
-{% for post in blogposts %}
     <div>
-        <a href="{{post.title}}/{{post.id}}">Read article {{post.title}}</a>
+        <div class="wrapper-view" id="land">
+            <div class="row" id="main">
+                <div class="col-md-6" id="side1">
+                    <h2>Recent posts link:</h2>
+                    {% for post in blogposts %}
+                    <div class="row">
+                        <a href="{{post.title}}/{{post.id}}">{{post.title}}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-6" id="side2">
+                    <div id="action">
+                            <h3>Are you a writer?</h3>
+                            <a href="{{url_for('blogger.profile')}}" class="btn btn-primary btn-lg" role="button" style="margin-left:50px;">Join us today!</a>
+                    </div>
+            </div>
+            </div>
+        </div>
     </div>
-{% endfor %}
 {% endblock %}
